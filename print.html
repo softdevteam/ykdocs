@@ -1,0 +1,629 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Yorick</title>
+        
+        <meta name="robots" content="noindex" />
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        
+        <link rel="stylesheet" href="css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="dev/index.html"><strong aria-hidden="true">2.</strong> Yorick Development</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="dev/getting_started.html"><strong aria-hidden="true">2.1.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dev/ci_cycles.html"><strong aria-hidden="true">2.2.</strong> Continuous Integration Cycles</a></li></ol></li><li class="chapter-item expanded "><a href="tech/index.html"><strong aria-hidden="true">3.</strong> Technical Details</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tech/rustc_changes.html"><strong aria-hidden="true">3.1.</strong> Our Rustc Changes</a></li><li class="chapter-item expanded "><a href="tech/yk_structure.html"><strong aria-hidden="true">3.2.</strong> The Structure of the JIT Runtime</a></li><li class="chapter-item expanded "><a href="tech/irs.html"><strong aria-hidden="true">3.3.</strong> Intermediate Representations</a></li><li class="chapter-item expanded "><a href="tech/sw_hw.html"><strong aria-hidden="true">3.4.</strong> Software and Hardware Tracing</a></li><li class="chapter-item expanded "><a href="tech/pipeline.html"><strong aria-hidden="true">3.5.</strong> The JIT Pipeline</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Yorick</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#introduction" id="introduction">Introduction</a></h1>
+<p>Yorick is a fork of the Rust programming language which aims to build a
+meta-tracing system using Rust as a meta-language. Imagine PyPy, but where your
+interpreter is written in Rust instead of RPython.</p>
+<p>Note that the system is in early stages of development: don't expect it to work
+yet.</p>
+<p>Yorick is developed by <a href="https://soft-dev.org/">The Software Development Team</a>
+at King's College London.</p>
+<p>The source for this documentations is
+<a href="https://github.com/softdevteam/ykdocs">available on GitHub</a>.</p>
+<h1><a class="header" href="#yorick-development" id="yorick-development">Yorick Development</a></h1>
+<p>This section talks about how to get up and running with developing Yorick.</p>
+<h1><a class="header" href="#building-and-running-tests" id="building-and-running-tests">Building and Running Tests</a></h1>
+<p>This guide describes how to get up and running with hardware tracing in Yorick.</p>
+<p>XXX: software tracing with cranelift.</p>
+<h2><a class="header" href="#repos" id="repos">Repos</a></h2>
+<p>Yorick is spread over a handful of repos, but the two you are likely to need to clone are:</p>
+<ul>
+<li><a href="https://github.com/softdevteam/ykrustc">ykrustc</a>: The compiler.</li>
+<li><a href="https://github.com/softdevteam/ykrustc">yk</a>: The runtime parts of the system.</li>
+</ul>
+<p>The latter is a monorepo containing a few different crates.</p>
+<h2><a class="header" href="#building-and-testing-the-compiler" id="building-and-testing-the-compiler">Building and Testing the Compiler</a></h2>
+<h3><a class="header" href="#building-the-compiler" id="building-the-compiler">Building the Compiler</a></h3>
+<p>To build the compiler, run:</p>
+<pre><code>./x.py build --stage 1
+</code></pre>
+<p>A stage one build is usually sufficient for development.</p>
+<p>If you have made changes to <code>ykpack</code> (in the <code>yk</code> repo), then edit the
+<code>Cargo.toml</code> in the top level of <code>ykrustc</code> add lines like:</p>
+<pre><code>[patch.&quot;https://github.com/softdevteam/yk&quot;]
+ykpack = { path = &quot;../yk/ykpack&quot; }
+</code></pre>
+<p>This will override the compiler's dependency to your local version. <strong>Be sure
+not to commit this change!</strong></p>
+<h3><a class="header" href="#testing-the-compiler" id="testing-the-compiler">Testing the Compiler</a></h3>
+<p>The compiler is tested with:</p>
+<pre><code>./x.py test --stage 1
+</code></pre>
+<p>You can do more thorough testing by testing stage 2, but it takes quite a
+while. CI will always do a full stage 2 test.</p>
+<h3><a class="header" href="#build-configuration" id="build-configuration">Build Configuration</a></h3>
+<p>You can configure the compiler by placing a config.toml in the top-level of the
+<code>ykrustc</code> directory. This is not mandatory, but there are scenarios where it can help.</p>
+<p>For example, rustc's backtraces are pretty poor by default and cranking the
+debug level can sometimes help (at the cost of a much slower build).</p>
+<p><code>config.toml.example</code> is upstream's example config. <code>.buildbot.config.toml</code> is
+the one CI uses.</p>
+<h2><a class="header" href="#building-and-testing-in-yk" id="building-and-testing-in-yk">Building and Testing in <code>yk</code></a></h2>
+<p>To work on <code>yk</code> you will need to have built the compiler, as detailed above.
+Then the easiest way to get going is to use <code>rustup</code> to create a &quot;linked
+toolchain&quot; and then override the <code>yk</code> repo to use it.</p>
+<p>Supposing you have a stage 1 compiler built, you can make a linked toolchain with:</p>
+<pre><code>rustup toolchain link yk-stage1 /path/to/ykrustc/build/x86_64-unknown-linux-gnu/stage1
+</code></pre>
+<p>Then change directory into where you have cloned <code>yk</code> and run:</p>
+<pre><code>rustup override set yk-stage1
+</code></pre>
+<p>Now <code>cargo</code> will run our compiler (also setting all of the various flags
+required) for this directory instead of the default Rust compiler.</p>
+<p>To select hardware tracing, you need to set an environment variable:</p>
+<pre><code>export RUSTFLAGS=&quot;-C tracer=hw&quot;
+</code></pre>
+<p>Then you can build and test the <code>yk</code> repo using <code>cargo xtask</code> commands, for
+example <code>cargo xtask test</code>.</p>
+<h2><a class="header" href="#rust-analyzer" id="rust-analyzer">Rust Analyzer</a></h2>
+<p><a href="https://github.com/rust-analyzer/rust-analyzer">Rust-analyzer</a>
+is a language server implementation for Rust.</p>
+<p>Due to <a href="dev/../tech/yk_structure.html">the workspace model of the <code>yk</code> repo</a> and the
+<code>x.py</code> build system in <code>ykrustc</code>, Rust Analyzer won't work out of the box.
+Configuration is dependent on the LSP plugin used, but in general:</p>
+<ul>
+<li>
+<p>For the <code>ykrustc</code> repo, you need to tell Rust Analyzer to run <code>x.py</code> and not
+<code>cargo</code>. This is done via the <code>rust-analyzer.checkOnSave.overrideCommand</code>
+option.</p>
+</li>
+<li>
+<p>For the <code>yk</code> repo, you need to point Rust Analyzer at the extra internal
+workspace via the <code>rust-analyzer.linkedProjects</code> option.</p>
+</li>
+</ul>
+<p>For example, for <a href="https://github.com/prabirshrestha/vim-lsp">vim-lsp</a> you would
+use a configuration similar to the following:</p>
+<pre><code>if executable('rust-analyzer')
+    if filereadable(&quot;x.py&quot;)
+        &quot; Rust compiler.
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'rust-analyzer',
+                    \ 'cmd': {server_info-&gt;['rust-analyzer']},
+                    \ 'allowlist': ['rust'],
+                    \ 'workspace_config': {'rust-analyzer': {'checkOnSave': {'overrideCommand': './x.py check --json-output'}}},
+                    \ })
+    elseif filereadable(&quot;ykshim_client/Cargo.toml&quot;)
+        &quot; It's the yk repo.
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'rust-analyzer',
+                    \ 'cmd': {server_info-&gt;['rust-analyzer']},
+                    \ 'allowlist': ['rust'],
+                    \ 'workspace_config': {'rust-analyzer': {'linkedProjects': ['internal_ws/Cargo.toml']}},
+                    \ })
+    else
+        &quot; Normal project.
+        &quot;
+        &quot; Either install rust-src from rustup or set RUST_SRC_PATH to the
+        &quot; `library` subdir of a rust source clone. If you are working on
+        &quot; Yorick, then that's the `library` directory in your ykrustc clone.
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'rust-analyzer',
+                    \ 'cmd': {server_info-&gt;['rust-analyzer']},
+                    \ 'allowlist': ['rust'],
+                    \ })
+    endif
+endif
+</code></pre>
+<p>Once rust-analyzer is enabled, you should make sure that your editor uses the
+same <code>RUSTFLAGS</code> as building and testing do. Failure to do so will cause the
+incremental build cache to be repeatedly invalidated and you'll constantly be
+rebuilding the same packages.</p>
+<h3><a class="header" href="#gotchas--tips" id="gotchas--tips">Gotchas / Tips</a></h3>
+<ul>
+<li>
+<p>If you change the ABI of any of the structures in <code>yk</code> then you will have to
+re-build the compiler before working on <code>yk</code> again. Failure to do this leads
+to weird deserialisation errors.</p>
+</li>
+<li>
+<p><code>cargo</code> will not trigger a rebuild of <code>yk</code> if the compiler is rebuilt, so
+you may have to <code>cargo clean</code>.</p>
+</li>
+<li>
+<p><code>cargo xtask fmt</code> and <code>cargo xtask clippy</code> in the <code>yk</code> repo currently
+require a nightly rust toolchain installed via rustup.</p>
+</li>
+<li>
+<p><a href="dev/ci_cycles.html">Continuous Integration Cycles</a></p>
+</li>
+</ul>
+<h1><a class="header" href="#continuous-integration-ci-cycles" id="continuous-integration-ci-cycles">Continuous Integration (CI) Cycles</a></h1>
+<p>When working on Yorick, it's possible to create &quot;CI cycles&quot;, which require
+special handling. This chapter outlines the problem scenario and how we work
+around it.</p>
+<h2><a class="header" href="#dependency-architecture-of-ykrustc" id="dependency-architecture-of-ykrustc">Dependency Architecture of ykrustc.</a></h2>
+<p>There are two main repos for Yorick:</p>
+<ul>
+<li><code>ykrustc</code>: the compiler.</li>
+<li><code>yk</code>: the other stuff, including <code>ykpack</code>.</li>
+</ul>
+<p><code>ykpack</code> is the library that deals with SIR serialisation and de-serialisation.
+The compiler uses it to encode SIR into an ELF section, and the JIT runtime
+uses it to decode the section.</p>
+<p>This leads to a problem: if you change the format of the SIR (change the
+serialised types in any way that would change the binary representation once
+serialised), then CI cannot succeed. This is because the <code>yk</code> repo needs to be
+built with a <code>ykrustc</code> which uses the new <code>ykpack</code>, but <code>yk</code> itself contains
+the new <code>ykpack</code>.</p>
+<h2><a class="header" href="#how-do-we-break-the-cycle" id="how-do-we-break-the-cycle">How do we Break the Cycle?</a></h2>
+<p>The change author raises two PRs: one for <code>yk</code> and one for <code>ykrustc</code>.</p>
+<p>The <code>ykrustc</code> PR description must have a line in the format:</p>
+<pre><code>ci-yk: &lt;github-username&gt; &lt;branch&gt;
+</code></pre>
+<p>There must be no other text on the line containing this. For example, the line
+<code>ci-yk: jim myfeature</code> tells the CI to use the <code>myfeature</code> branch of
+<code>https://github.com/jim/yk</code> for the yk dependency.</p>
+<p>Then the reviewer can merge <code>ykrustc</code> and then <code>yk</code>. Note that bors can only
+merge one PR at a time, so merging the <code>ykrustc</code> PR will not merge the <code>yk</code> PR
+automatically.</p>
+<p>Note that the last successful CI build of ykrustc is used to build <code>yk</code>.</p>
+<h1><a class="header" href="#technical-details" id="technical-details">Technical Details</a></h1>
+<p>This chapter contains the nitty-gritty details of the system.</p>
+<h1><a class="header" href="#our-rustc-changes" id="our-rustc-changes">Our Rustc Changes</a></h1>
+<p>Ykrustc is a fork of the Rust compiler. This page lists what we have changed.</p>
+<ul>
+<li>
+<p>Added the command line flag <code>-C tracer=&lt;t&gt;</code>, where <code>&lt;t&gt;</code> can be <code>hw</code>, <code>sw</code>
+or <code>off</code> (hardware tracing, software tracing, no tracing).</p>
+</li>
+<li>
+<p>Added the <code>tracermode</code> configuration macro so that we can do conditional
+compilation based on the value of <code>-C tracer</code> (e.g. <code>#[cfg(tracermode = hw)]</code>).</p>
+</li>
+<li>
+<p>Added the <code>yk-sir</code> option to <code>--emit</code> allowing dumping of SIR to file.</p>
+</li>
+<li>
+<p>When <code>-C tracer</code> is <code>hw</code>, optimisations are disabled to prevent LLVM from
+re-ordering blocks, as this would interfere with the way that we map Intel
+Processor Trace (PT) addresses back to our IR.</p>
+</li>
+<li>
+<p>When <code>-C tracer</code> is <code>hw</code>, we insert DWARF <code>DILabel</code>s whose names encode
+block locations within our IR. These labels are used to map a PT trace to a
+SIR trace.</p>
+<ul>
+<li>The DWARF labels are post-processed after linkage to put them into a
+faster to read ELF section.</li>
+</ul>
+</li>
+<li>
+<p>In <code>rustc_codegen_llvm</code> we lower each monomorphised MIR body (and its
+associated types) into our own IR (SIR). Each codegen unit encodes one ELF
+section containing such IR.</p>
+</li>
+<li>
+<p>We pass <code>--export-dynamic</code> to the linker so that we can look up symbols from
+the main text section at runtime.</p>
+</li>
+<li>
+<p>Added our own continuous integration configuration and associated scripts,
+and remove upstream's.</p>
+</li>
+<li>
+<p>Added several new attributes:</p>
+<ul>
+<li><code>do_not_trace</code>: prevents a function from being inlined in a trace.</li>
+<li><code>interp_step</code>: marks the user's bytecode dispatch function.</li>
+<li><code>trace_debug</code>: Inserts a comment into the TIR trace.</li>
+</ul>
+</li>
+<li>
+<p>Added tests.</p>
+</li>
+</ul>
+<h1><a class="header" href="#the-structure-of-the-jit-runtime" id="the-structure-of-the-jit-runtime">The Structure of the JIT Runtime</a></h1>
+<p>The <code>yk</code> repo's structure (and build system) is somewhat unusual as the code is
+spread over two workspaces. This is because we need to separately compile parts
+of the codebase with different configurations.</p>
+<p>Code that we expect to be able to hardware trace needs to be compiled with <code>-C tracer=hw</code>. Crucially, since hardware tracing relies on blocks not being
+reordered by LLVM, this flag disables optimisations. However, the JIT runtime
+will never be traced and therefore we can (and should) optimise this code.
+Further we want to be able to optimise the dependencies of the JIT runtime.</p>
+<p>To this end, we have two Rust workspaces in the <code>yk</code> repo: the &quot;internal&quot;
+(optimised) workspace, and the &quot;external&quot; (unoptimised) workspace. The external
+workspace then talks to the internal workspace via <code>extern</code> functions defined
+in the <code>ykshim</code> crate.</p>
+<pre><code>          External Workspace                Internal Workspace
++------------------------------------+ +-----------------------------+
+| Interpreter +                      | |                             |
+|             |                      | |                             |
+|             +----&gt; ykshim_client +----&gt; yk_shim +----&gt; JIT runtime |
+|             |                      | |                             |
+|       Tests +                      | |                             |
++------------------------------------+ +-----------------------------+
+</code></pre>
+<p>To build the two workspaces, we use <code>cargo xtask</code>.</p>
+<p>There are a few implementation details to note:</p>
+<ul>
+<li>
+<p>Code traced as part of testing needs to reside in the external workspace.
+Parts of <code>ykshim</code>'s API surface exist only for testing.</p>
+</li>
+<li>
+<p>Although we build both workspaces with the same compiler, to avoid potential
+ABI-related issues (where adding a <code>-C</code> flag to the <code>rustc</code> invocation could
+result in ABI skew), the workspaces communicate via the C ABI.</p>
+</li>
+<li>
+<p>Similarly, unless explicitly safe (e.g. <code>std::ffi</code> types, or <code>#[repr(C)]</code>
+types), we shouldn't assume that types with the same definition have the same
+layout in both workspaces. It is however, always safe for one workspace to
+give the other an opaque pointer to an instance of some type as long as the
+receiving workspace never tries to interpret the value as anything but an
+opaque pointer.</p>
+</li>
+<li>
+<p>Due to the separate compilation of the workspaces, some code will be
+duplicated. To avoid collisions of unmangled symbols, the internal workspace
+is compiled into a shared object.</p>
+</li>
+<li>
+<p>Since <code>yk</code> requires use of the abort strategy, no attempt is made to prevent
+unwinding across the C ABI (which would invoke undefined behaviour).</p>
+</li>
+<li>
+<p>The workspace model means that rust-analyzer won't work properly by default.
+See <a href="tech/../dev/getting_started.html#rust-analyzer">here</a> for details.</p>
+</li>
+</ul>
+<h1><a class="header" href="#intermediate-representations" id="intermediate-representations">Intermediate Representations</a></h1>
+<p>Yorick uses two additional intermediate representations (IRs) on top of those
+already found in rustc:</p>
+<ul>
+<li>Serialised IR (SIR)</li>
+<li>Tracing IR (TIR)</li>
+</ul>
+<h2><a class="header" href="#serialised-ir-sir" id="serialised-ir-sir">Serialised IR (SIR)</a></h2>
+<p>During LLVM codegen, ykrustc generates SIR. SIR exists so that high-level
+program information can be reconstructed at runtime without a need for an
+instance of the compiler (and its <code>tcx</code> struct). SIR is serialised using serde
+and linked into special ELF sections in the resulting binary (one section per
+crate, whose names are prefixed <code>.yksir_</code>).</p>
+<p>SIR is not in SSA form, but this may change in the future.</p>
+<p>The SIR data structures are in an
+<a href="https://github.com/softdevteam/yk/tree/master/ykpack">externally maintained crate</a>
+so that they can be shared by the compiler and the JIT runtime.</p>
+<p>The
+<a href="https://github.com/softdevteam/ykrustc/blob/f27ee1fea44dcd343849c80b8805ddc90e2b26ea/compiler/rustc_codegen_ssa/src/sir.rs#L100">SirFuncCx</a>
+is the structure responsible for lowering MIR functions into SIR.</p>
+<h3><a class="header" href="#why-is-sir-implemented-in-the-llvm-codegen" id="why-is-sir-implemented-in-the-llvm-codegen">Why is SIR Implemented in the LLVM Codegen?</a></h3>
+<p>Initially SIR was generated from Rust's Middle Intermediate Representation
+(MIR). This was much simpler and was backend agnostic, but it meant that we
+were unable to resolve monomorphised call targets, as monomorphisation happens
+later in the codegen.</p>
+<h2><a class="header" href="#tracing-ir-tir" id="tracing-ir-tir">Tracing IR (TIR)</a></h2>
+<p>TIR is basically SIR with guards instead of branches. TIR is the basis for a
+compiled trace.</p>
+<p>TIR <a href="https://github.com/softdevteam/yk/tree/master/yktrace">lives in yktrace</a>.</p>
+<h2><a class="header" href="#local-variables" id="local-variables">Local Variables</a></h2>
+<p>MIR, SIR and TIR all have the notion of local variables. Each local variable is
+identified by an integer (its <em>index</em>). These indices are unique only within
+the scope of a function.</p>
+<p>Before a TIR trace is compiled, variables are renamed so that (e.g.) variable
+index <code>1</code> from function <code>f()</code> does not clash with variable index <code>1</code> from
+function <code>g()</code>.</p>
+<h1><a class="header" href="#software-and-hardware-tracing" id="software-and-hardware-tracing">Software and Hardware Tracing</a></h1>
+<p>Yorick has two tracing modes:</p>
+<ul>
+<li>Software tracing.</li>
+<li>Hardware tracing.</li>
+</ul>
+<h2><a class="header" href="#software-tracing" id="software-tracing">Software Tracing</a></h2>
+<p>Note that for now we have stopped development on software tracing, as we are
+focussing on hardware tracing.</p>
+<p>We hope to re-visit software tracing later.</p>
+<h2><a class="header" href="#hardware-tracing" id="hardware-tracing">Hardware Tracing</a></h2>
+<p>In hardware tracing mode, we use
+<a href="https://software.intel.com/en-us/blogs/2013/09/18/processor-tracing">Intel Processor Trace</a>
+to do trace collection. The chip gives us a trace of virtual addresses which we
+then map back to SIR locations using DWARF labels (<code>DILabel</code>).</p>
+<h3><a class="header" href="#further-reading" id="further-reading">Further Reading</a></h3>
+<ul>
+<li>
+<p>The LLVM code for the insertion of the Yorick debug labels can be found
+<a href="https://github.com/softdevteam/ykrustc/blob/master/src/rustllvm/RustWrapper.cpp">here</a>.
+Those functions can be accessed from within rustc's code generator using
+helper functions in the
+<a href="https://github.com/softdevteam/ykrustc/blob/master/src/librustc_codegen_llvm/builder.rs">codegen builder</a>.</p>
+</li>
+<li>
+<p>The actual label generation happens during the code generation of
+<a href="https://github.com/softdevteam/ykrustc/blob/master/src/librustc_codegen_ssa/mir/block.rs">blocks</a>.
+Labels are inserted at the beginning of each block, as well as when returning
+from function calls.</p>
+</li>
+</ul>
+<h2><a class="header" href="#selecting-a-tracing-mode" id="selecting-a-tracing-mode">Selecting a Tracing Mode</a></h2>
+<p>When you build a Rust program that you want to trace, both <code>ykrustc</code> (for the
+standard library), and your code must be built for a specific tracing backend.</p>
+<p>To choose a backend, you pass <code>-C tracer=T</code> to <code>rustc</code>, where <code>T</code> is one of
+<code>hw</code>, <code>sw, or </code>off<code>. Passing </code>off` is the same as omitting the option
+altogether.</p>
+<p>If you are using <code>cargo</code>, you will need to add this flag to the <code>RUSTFLAGS</code>
+environment.</p>
+<p><code>-C tracer</code> is a tracked flag: changing it will trigger a rebuild (but bear in
+mind that your standard library will not be rebuilt. See below).</p>
+<p>Note that hardware tracing currently doesn't work together with optimisations,
+and is thus automatically disabled whenever optimisations are enabled.</p>
+<h2><a class="header" href="#considerations-when-building-ykrustc-itself" id="considerations-when-building-ykrustc-itself">Considerations when Building ykrustc Itself.</a></h2>
+<p>When you build ykrustc using <code>x.py</code> you will need to decide what tracing
+support the standard library should be built with. You must set
+<code>STD_TRACER_MODE</code> to <code>hw</code>, <code>sw</code>, or <code>off</code>. If you fail to set this variable,
+the bootstrap will refuse to run.</p>
+<h1><a class="header" href="#the-jit-pipeline" id="the-jit-pipeline">The JIT pipeline.</a></h1>
+<p>There are several trace representations used at different stages in Yorick's
+JIT pipeline.</p>
+<h2><a class="header" href="#pt-traces" id="pt-traces">PT Traces</a></h2>
+<p>The JIT pipeline starts when a binary traces a section of its own execution,
+giving us a PT trace.</p>
+<p>A PT trace is a raw trace supplied to us by the Intel hardware (via the
+<a href="https://github.com/softdevteam/hwtracer/">hwtracer</a> library). This kind of
+trace is effectively a list of block addresses. The addresses are virtual
+instruction addresses from the relocated <code>.text</code> section of the running binary.
+This means that (due to ASLR) these addresses are unique to a particular run of
+the program.</p>
+<h2><a class="header" href="#sir-traces" id="sir-traces">SIR Traces</a></h2>
+<p>Given a PT trace, Yorick then constructs a SIR trace. A SIR trace is a list of
+&lt;symbol-name, block-index&gt; pairs. Each such pair identifies a SIR block that
+execution passed through during tracing.</p>
+<p>To make a SIR trace from a PT trace, Yorick uses the
+<a href="https://github.com/softdevteam/yk/blob/master/yktrace/src/hwt/mapper.rs">HWTMapper</a>.
+When the program to be traced is compiled, ykrustc inserts special debugging
+labels (DWARF <code>DILabel</code>s) into the binary to help map virtual addresses back to
+the SIR.</p>
+<p>For this mapping to be correct we rely on LLVM not re-ordering blocks, thus for
+now, ykrustc compiles programs without optimisations.</p>
+<p>SIR traces are &quot;trimmed&quot;, to remove unnecessary blocks. These blocks correspond
+with the routines used to start and stop tracing, which themselves get
+partially traced.</p>
+<h2><a class="header" href="#tir-traces" id="tir-traces">TIR Traces</a></h2>
+<p>Once Yorick has a SIR trace, it converts it to a TIR trace by:</p>
+<ul>
+<li>Converting control flow terminators into guards.</li>
+<li>Renaming variables so that variable indices are unique within the trace.</li>
+</ul>
+<h2><a class="header" href="#executable-code" id="executable-code">Executable Code</a></h2>
+<p>The TIR trace is then compiled into native code for the target architecture.</p>
+<p>The bulk of the heavy lifting is performed by
+<a href="https://github.com/CensoredUsername/dynasm-rs">dynasm-rs</a>, but we do have to
+implement our own register allocation.</p>
+<p>Once this step is complete, we have an executable code buffer which can be
+called (we model the trace as a function).</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
